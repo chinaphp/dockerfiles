@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.8
 
 ARG TZ="Asia/Shanghai"
 ENV TZ ${TZ}
