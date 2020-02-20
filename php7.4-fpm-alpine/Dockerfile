@@ -4,7 +4,7 @@ ARG TZ="Asia/Shanghai"
 ENV TZ ${TZ}
 
 
-RUN set -xe && apk add --quiet --no-cache --virtual=.run-deps tzdata ca-certificates curl tar \
+RUN set -xe && apk add --quiet --no-cache --virtual=.run-deps tzdata ca-certificates curl tar && \
   # Use the default production configuration
   mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
   docker-php-ext-install pdo_mysql redis gd intl && \
