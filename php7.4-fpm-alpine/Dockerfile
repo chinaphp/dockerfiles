@@ -3,17 +3,14 @@ FROM php:7.4-fpm-alpine
 ARG TZ="Asia/Shanghai"
 ENV TZ ${TZ}
 
-
-RUN set -xe && apk add --quiet --no-cache --virtual=.run-deps tzdata ca-certificates curl tar && \
-  # Use the default production configuration
-  mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
-  docker-php-ext-install pdo_mysql mcrypt gd && \
-  ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log && \
-  ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
-    echo ${TZ} > /etc/timezone && \
-    apk del tzdata && \   
-	apk del --quiet --no-cache --purge && rm -rf /var/cache/apk/* 
-    
-
-# Override with custom opcache settings
-#COPY config/opcache.ini $PHP_INI_DIR/conf.d/
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+    && set -ex \
+    && apk update && apk add --no-cache zlib zlib-dev libmcrypt libmcrypt-dev libltdl \
+    && apk add --update --no-cache --virtual .build-deps autoconf build-base tzdata \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && docker-php-ext-install mysqli pdo_mysql \   
+    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo ${TZ} > /etc/timezone \
+    && apk del .build-deps \
+    && rm -rf /usr/share/man /tmp/* /var/cache/apk/*
