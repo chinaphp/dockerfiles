@@ -12,5 +12,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && docker-php-ext-install mysqli pdo_mysql \   
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
+    && apk add --no-cache libpng libpng-dev freetype-dev libjpeg-turbo-dev && docker-php-ext-install gd && apk del libpng-dev freetype-dev libjpeg-turbo-dev \
     && apk del .build-deps \
     && rm -rf /usr/share/man /tmp/* /var/cache/apk/*
