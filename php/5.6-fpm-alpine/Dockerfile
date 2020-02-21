@@ -5,6 +5,7 @@ ENV TZ ${TZ}
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && sed -i "s/^;date.timezone =$/date.timezone = \"Asia\/Shanghai\"/" /usr/local/etc/php/php.ini \
     && set -ex \
     && apk update && apk add --no-cache tzdata ca-certificates zlib zlib-dev libmcrypt libmcrypt-dev libltdl \
     && apk add --update --no-cache --virtual .build-deps autoconf build-base \
