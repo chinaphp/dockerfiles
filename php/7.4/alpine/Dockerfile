@@ -52,6 +52,7 @@ ENV PECL_EXTENSION \
       igbinary \
       redis \
       memcached \
+      amqp \
 # 安装测试版的扩展，可以在扩展名后加 -beta
       # xdebug-beta \
       yaml \
@@ -84,6 +85,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_URL}/g" /etc/apk/repositories \
                          icu-libs \
                          libgcrypt \
                          gnu-libiconv \
+                         rabbitmq-c \
                          ${APK_EXTRA:-} \
                          " \
                          # tidyhtml-libs \
@@ -113,6 +115,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_URL}/g" /etc/apk/repositories \
                          icu-dev \
                          libgpg-error-dev \
                          libgcrypt-dev \
+                         rabbitmq-c-dev \
                          ${APK_DEV_EXTRA:-} \
                          " \
                          # tidyhtml-dev \
