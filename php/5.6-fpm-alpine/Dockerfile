@@ -3,7 +3,7 @@ FROM php:5.6-fpm-alpine
 ARG TZ="Asia/Shanghai"
 ENV TZ ${TZ}
 
-COPY zend/*.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226
+COPY zend/*.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \ 
     && sed -i "s/^;date.timezone =$/date.timezone = \"Asia\/Shanghai\"/" "$PHP_INI_DIR/php.ini-production" \
