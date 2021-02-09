@@ -5,10 +5,6 @@ FROM php:${PHP_VERSION}-fpm-alpine as php
 
 LABEL maintainer="khs1994-docker/lnmp <khs1994@khs1994.com>"
 
-ARG VCS_REF
-
-LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/khs1994-docker/php"
 
 ARG PHP_EXTENSION_EXTRA="ffi"
 
