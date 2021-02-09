@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:experimental
-ARG PHP_VERSION=7.4.15
+ARG PHP_VERSION=7.4.14
 
-FROM php:${PHP_VERSION}-fpm-alpine as php
+FROM php:${PHP_VERSION}-fpm-alpine3.11 as php
 
 LABEL maintainer="khs1994-docker/lnmp <khs1994@khs1994.com>"
 
@@ -51,6 +51,7 @@ ENV PECL_EXTENSION \
       amqp \
 # 安装测试版的扩展，可以在扩展名后加 -beta
       # xdebug-beta \
+      https://github.com/kjdev/php-ext-zstd/archive/0.9.0.tar.gz \
       yaml \
       ${PECL_EXTENSION_EXTRA:-}
 
@@ -159,8 +160,10 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_URL}/g" /etc/apk/repositories \
         && ln -sf /dev/stderr /var/log/php-fpm/error.log \
         && ln -sf /dev/stderr /var/log/php-fpm/xdebug-remote.log \
         && chmod -R 777 /var/log/php-fpm \
-        && rm -rf /usr/local/lib/php/.registry/.channel.pecl.php.net/* 
-
+        && rm -rf /usr/local/lib/php/.registry/.channel.pecl.php.net/* \
+        && php -m \
+        && ls -la $(php-config --extension-dir) \
+        && LD_PRELOAD="/usr/lib/preloadable_libiconv.so php" php -d error_reporting=22527 -d display_errors=1 -r 'var_dump(iconv("UTF-8", "UTF-8//IGNORE", "This is the Euro symbol '\''€'\''."));'
 
 ENV LD_PRELOAD="/usr/lib/preloadable_libiconv.so php"
 
