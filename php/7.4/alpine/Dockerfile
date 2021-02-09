@@ -160,10 +160,8 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_URL}/g" /etc/apk/repositories \
         && ln -sf /dev/stderr /var/log/php-fpm/xdebug-remote.log \
         && chmod -R 777 /var/log/php-fpm \
         && rm -rf /usr/local/lib/php/.registry/.channel.pecl.php.net/* \
-        && php -m \
-        && ls -la $(php-config --extension-dir) \
-        && LD_PRELOAD="/usr/lib/preloadable_libiconv.so php" php -d error_reporting=22527 -d display_errors=1 -r 'var_dump(iconv("UTF-8", "UTF-8//IGNORE", "This is the Euro symbol '\''€'\''."));'
-
+        && php -m
+        
 ENV LD_PRELOAD="/usr/lib/preloadable_libiconv.so php"
 
 WORKDIR /app
