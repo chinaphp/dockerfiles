@@ -51,7 +51,6 @@ ENV PECL_EXTENSION \
       amqp \
 # 安装测试版的扩展，可以在扩展名后加 -beta
       # xdebug-beta \
-      https://github.com/kjdev/php-ext-zstd/archive/0.9.0.tar.gz \
       yaml \
       ${PECL_EXTENSION_EXTRA:-}
 
