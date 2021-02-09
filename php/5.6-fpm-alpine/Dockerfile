@@ -22,3 +22,4 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && docker-php-ext-install -j$(nproc) gd && apk del libpng-dev freetype-dev libjpeg-turbo-dev \
     && apk del .build-deps \
     && rm -rf /usr/share/man /tmp/* /var/cache/apk/*
+COPY config/opcache.ini /usr/local/etc/php/conf.d/
