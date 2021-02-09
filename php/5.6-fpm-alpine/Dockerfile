@@ -9,7 +9,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && sed -i "s/^;date.timezone =$/date.timezone = \"Asia\/Shanghai\"/" "$PHP_INI_DIR/php.ini-production" \
     && cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && set -ex \
-    && apk upgrade --quiet --no-cache && apk add --no-cache tzdata ca-certificates zlib zlib-dev libmcrypt libmcrypt-dev libltdl \
+    && apk upgrade --quiet --no-cache && apk add --no-cache tzdata ca-certificates zlib zlib-dev libmcrypt libmcrypt-dev libltdl libstdc++ \
     && apk add --update --no-cache --virtual .build-deps autoconf build-base \
     && pecl install https://pecl.php.net/get/redis-4.3.0.tgz \
     && docker-php-ext-enable redis \
