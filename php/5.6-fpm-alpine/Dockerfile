@@ -14,7 +14,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && pecl install https://pecl.php.net/get/redis-4.3.0.tgz \
     && docker-php-ext-enable redis \
     && docker-php-ext-enable ZendGuardLoader \
-    && docker-php-ext-install mysqli pdo_mysql mcrypt \
+    && docker-php-ext-install mysqli pdo_mysql mcrypt bcmath \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && apk add --no-cache libpng libpng-dev freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev \
